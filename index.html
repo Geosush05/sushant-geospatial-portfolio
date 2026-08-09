@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sushant Gurav | GIS Analyst | Geoinformatics Portfolio</title>
+<meta name="description" content="GIS Analyst and Geoinformatics professional working with GIS, spatial analysis, remote sensing, Web GIS, mapping and spatial data visualization.">
+<meta property="og:title" content="Sushant Gurav — GIS Analyst">
+<meta property="og:description" content="Understanding places, patterns and change through spatial data.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#11161a;
+  --bg-1:#161d21;
+  --bg-2:#0d1114;
+  --earth:#7a6247;
+  --forest:#4f5f52;
+  --sky:#7a93a0;
+  --accent:#d3a25a;
+  --accent-dim:#8a6f45;
+  --line:rgba(234,230,221,0.10);
+  --line-strong:rgba(234,230,221,0.18);
+  --text:#eae6dd;
+  --text-mid:#c3bfb5;
+  --text-dim:#8b9089;
+  --radius:2px;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  --sans:'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-weight:350;
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer;}
+::selection{background:var(--accent); color:#12181a;}
+
+.mono{font-family:var(--mono);}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+/* Focus visibility */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+/* ===== Background layer system ===== */
+.bg-layer{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.9;}
+.gis-atmosphere{
+  position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  background:radial-gradient(ellipse at 52% 12%, rgba(79,95,82,.13), transparent 48%), var(--bg-2);
+}
+.gis-atmosphere svg{width:100%; height:100%; display:block; opacity:.72; transition:opacity .8s ease, transform 1.4s ease;}
+.gis-atmosphere[data-zone="journey"] svg{transform:translateY(-1.5%); opacity:.78;}
+.gis-atmosphere[data-zone="work"] svg{transform:translateY(-3%); opacity:.7;}
+.gis-atmosphere[data-zone="lab"] svg{transform:translateY(-4%); opacity:.74;}
+.gis-atmosphere[data-zone="world"] svg{transform:translateY(-5%); opacity:.8;}
+.gis-atmosphere[data-zone="contact"] svg{transform:translateY(-7%); opacity:.58;}
+.atmosphere-grid{stroke:#eae6dd; stroke-opacity:.055; stroke-width:1;}
+.atmosphere-contours{fill:none; stroke:#7a6247; stroke-opacity:.24; stroke-width:1;}
+.atmosphere-contours{transform-box:fill-box; transform-origin:center; animation:topoDrift 42s ease-in-out infinite alternate;}
+.atmosphere-links{fill:none; stroke:#7a93a0; stroke-opacity:.16; stroke-width:1;}
+.atmosphere-node{fill:#d3a25a; fill-opacity:.62;}
+.atmosphere-ring{fill:none; stroke:#d3a25a; stroke-opacity:.18; stroke-width:1;}
+.atmosphere-label{fill:#9aa39c; fill-opacity:.4; font-family:var(--mono); font-size:10px; letter-spacing:.08em;}
+@keyframes topoDrift{from{transform:translate(0,0) scale(1);} to{transform:translate(8px,-5px) scale(1.012);}}
+.grain{
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.035; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== Nav ===== */
+header.site-nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px clamp(20px,4vw,56px);
+  background:linear-gradient(to bottom, rgba(13,17,20,0.85), transparent);
+  backdrop-filter:blur(2px);
+}
+.brand{
+  font-family:var(--mono); font-size:0.82rem; letter-spacing:0.06em; color:var(--text);
+}
+.brand strong{color:var(--accent); font-weight:500;}
+nav.links{display:flex; gap:clamp(14px,2vw,30px); align-items:center;}
+nav.links a{
+  font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em;
+  color:var(--text-dim); position:relative; padding:4px 2px;
+  transition:color .25s ease;
+}
+nav.links a:hover, nav.links a:focus-visible{color:var(--text);}
+nav.links a.cv-btn{
+  color:var(--bg); background:var(--accent); padding:9px 16px; border-radius:var(--radius);
+  letter-spacing:0.08em;
+}
+nav.links a.cv-btn:hover{background:#e3b56d;}
+.nav-toggle{display:none; border:1px solid var(--line-strong); background:transparent; color:var(--text); padding:9px 11px; border-radius:var(--radius); font-family:var(--mono); font-size:0.72rem;}
+.nav-toggle[aria-expanded="true"]{color:var(--accent); border-color:var(--accent);}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  justify-content:flex-end; padding:0 clamp(20px,4vw,56px) 70px;
+  overflow:hidden;
+}
+.hero-canvas{position:absolute; inset:0; z-index:0;}
+#terrain-svg{width:100%; height:100%; display:block;}
+.hero-vignette{
+  position:absolute; inset:0; z-index:1;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(13,17,20,0.05), rgba(13,17,20,0.75) 75%),
+             linear-gradient(180deg, rgba(13,17,20,0.55) 0%, rgba(13,17,20,0.15) 30%, rgba(13,17,20,0.55) 100%);
+}
+.hero-layout{position:relative; z-index:2; display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,420px); gap:clamp(30px,8vw,140px); align-items:end; max-width:1180px; width:100%;}
+.hero-content{max-width:760px;}
+.hero-coords{
+  font-family:var(--mono); font-size:0.72rem; color:var(--sky); letter-spacing:0.05em;
+  margin-bottom:22px; display:flex; gap:22px; opacity:0.85;
+}
+.hero-coords span{white-space:nowrap;}
+h1.hero-name{
+  font-size:clamp(2.6rem, 7.5vw, 5.6rem);
+  font-weight:600; line-height:0.98; letter-spacing:-0.01em;
+  margin-bottom:14px;
+}
+.hero-role{
+  font-family:var(--mono); font-size:clamp(0.82rem,1.4vw,1rem);
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);
+  margin-bottom:20px;
+}
+.hero-role strong{font-weight:500; color:var(--text);}
+.hero-role .sep{color:var(--text-dim); margin:0 6px;}
+.hero-focus{display:grid; gap:5px; margin:-8px 0 22px; color:var(--text-mid); font-family:var(--mono); font-size:clamp(.76rem,1.2vw,.92rem); letter-spacing:.08em; text-transform:uppercase;}
+.hero-focus span:first-child{color:var(--accent);}
+.earth-emblem{width:min(100%,390px); aspect-ratio:1; justify-self:end; position:relative; color:var(--accent); opacity:.86;}
+.earth-emblem svg{width:100%; height:100%; display:block; overflow:visible;}
+.earth-emblem .earth-shell{fill:rgba(79,95,82,.12); stroke:currentColor; stroke-opacity:.72; stroke-width:1.25;}
+.earth-emblem .earth-grid{fill:none; stroke:#eae6dd; stroke-opacity:.2; stroke-width:1;}
+.earth-emblem .earth-route{fill:none; stroke:currentColor; stroke-opacity:.6; stroke-width:1.25; stroke-dasharray:3 7; animation:routepulse 8s linear infinite;}
+.earth-emblem .earth-node{fill:var(--accent);}
+.earth-emblem text{fill:var(--text-mid); font-family:var(--mono); font-size:10px; letter-spacing:.16em;}
+@keyframes routepulse{to{stroke-dashoffset:-40;}}
+p.hero-line{
+  font-size:clamp(1rem,1.6vw,1.25rem); color:var(--text-mid); max-width:520px;
+  margin-bottom:36px; font-weight:300;
+}
+.hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  font-family:var(--mono); font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
+  padding:14px 26px; border-radius:var(--radius); border:1px solid var(--line-strong);
+  transition:all .25s ease; display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary{background:var(--accent); color:#161000; border-color:var(--accent);}
+.btn-primary:hover{background:#e3b56d;}
+.btn-ghost{color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+.scroll-hint{
+  position:absolute; bottom:26px; left:clamp(20px,4vw,56px); z-index:2;
+  display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:0.68rem;
+  color:var(--text-dim); letter-spacing:0.1em; text-transform:uppercase;
+}
+.scroll-line{width:1px; height:34px; background:linear-gradient(to bottom, var(--accent), transparent); animation:scrollpulse 2.4s ease-in-out infinite;}
+@keyframes scrollpulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
+
+/* ===== Sections generic ===== */
+section{position:relative; z-index:2; padding:clamp(70px,12vh,140px) clamp(20px,4vw,56px);}
+.section-head{max-width:640px; margin-bottom:56px;}
+.section-num{font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:14px; display:block;}
+h2.section-title{font-size:clamp(1.9rem,4vw,2.9rem); font-weight:550; letter-spacing:-0.01em; margin-bottom:16px;}
+p.section-sub{color:var(--text-mid); font-size:1.02rem; max-width:520px; font-weight:300;}
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ===== Profile strip ===== */
+.profile-strip{
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(24px,4vw,56px); align-items:center;
+  padding-top:clamp(50px,8vh,90px);
+}
+.profile-photo{
+  width:132px; height:132px; border-radius:50%; overflow:hidden; border:1px solid var(--line-strong);
+  position:relative; flex-shrink:0;
+}
+.profile-photo img{width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(0.25) contrast(1.05) sepia(0.06);}
+.profile-photo::after{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  box-shadow:inset 0 0 24px rgba(13,17,20,0.55);
+  background:linear-gradient(160deg, rgba(211,162,90,0.12), transparent 55%);
+}
+.profile-facts{display:flex; flex-wrap:wrap; gap:10px 28px; font-family:var(--mono); font-size:0.78rem; color:var(--text-mid);}
+.profile-facts strong{color:var(--text); font-weight:500; display:block; font-family:var(--sans); font-size:0.95rem; margin-bottom:2px;}
+.skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+.skill-group{background:var(--bg-1); padding:22px; min-height:130px;}
+.skill-group strong{display:block; color:var(--accent); font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;}
+.skill-group span{display:inline-block; color:var(--text-mid); font-family:var(--mono); font-size:.75rem; margin:0 14px 8px 0;}
+
+/* ===== Journey ===== */
+.journey-path{position:relative; max-width:760px; margin-left:6px;}
+.journey-path::before{
+  content:""; position:absolute; left:9px; top:10px; bottom:10px; width:1px;
+  background:linear-gradient(to bottom, var(--accent), var(--forest) 40%, var(--line-strong) 100%);
+}
+.node{position:relative; padding:0 0 54px 46px;}
+.node:last-child{padding-bottom:0;}
+.node::before{
+  content:""; position:absolute; left:0px; top:4px; width:19px; height:19px; border-radius:50%;
+  border:1px solid var(--accent); background:var(--bg-1);
+}
+.node::after{
+  content:""; position:absolute; left:7px; top:11px; width:5px; height:5px; border-radius:50%; background:var(--accent);
+}
+.node-eyebrow{font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; color:var(--accent); text-transform:uppercase; margin-bottom:6px;}
+.node h3{font-size:1.35rem; font-weight:550; margin-bottom:8px;}
+.node p{color:var(--text-mid); font-size:0.95rem; max-width:560px; font-weight:300;}
+.node .meta{font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); margin-top:10px; display:flex; gap:16px; flex-wrap:wrap;}
+
+/* Experience cards inline within journey */
+.exp-card{
+  margin-top:16px; padding:20px 22px; border:1px solid var(--line); border-radius:var(--radius);
+  background:linear-gradient(160deg, rgba(122,98,71,0.06), transparent 60%);
+}
+.exp-card .role-line{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;}
+.exp-card .role-line .role{font-weight:550; font-size:1.02rem;}
+.exp-card .role-line .org{color:var(--accent); font-size:0.86rem; font-family:var(--mono);}
+.exp-card ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+.exp-card li{
+  font-size:0.9rem; color:var(--text-mid); padding-left:16px; position:relative; font-weight:300;
+}
+.exp-card li::before{content:"—"; position:absolute; left:0; color:var(--text-dim);}
+.tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+.tag{
+  font-family:var(--mono); font-size:0.66rem; letter-spacing:0.04em; color:var(--text-mid);
+  border:1px solid var(--line-strong); padding:4px 9px; border-radius:20px;
+}
+
+/* ===== Projects ===== */
+.project{
+  border-top:1px solid var(--line); padding:48px 0; display:grid;
+  grid-template-columns:1fr 1.05fr; gap:clamp(30px,5vw,60px); align-items:center;
+}
+.project:last-of-type{border-bottom:1px solid var(--line);}
+.project.reverse{grid-template-columns:1.05fr 1fr;}
+.project.reverse .project-visual{order:2;}
+.project-info .p-index{font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:10px;}
+.project-info h3{font-size:clamp(1.4rem,2.4vw,1.9rem); font-weight:550; margin-bottom:12px; letter-spacing:-0.01em;}
+.project-info p.desc{color:var(--text-mid); font-size:0.94rem; margin-bottom:18px; font-weight:300;}
+.pipeline{
+  display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-family:var(--mono); font-size:0.66rem;
+  color:var(--text-dim); letter-spacing:0.03em; margin-bottom:18px;
+}
+.pipeline .step{border:1px solid var(--line-strong); padding:4px 8px; border-radius:2px; color:var(--text-mid);}
+.pipeline .arrow{color:var(--accent);}
+.project-visual{
+  position:relative; aspect-ratio:4/3; border:1px solid var(--line-strong); border-radius:var(--radius);
+  overflow:hidden; background:var(--bg-1);
+}
+.project-visual svg{width:100%; height:100%; display:block;}
+.demo-badge{
+  position:absolute; top:12px; right:12px; font-family:var(--mono); font-size:0.6rem; letter-spacing:0.08em;
+  color:var(--bg); background:var(--accent); padding:4px 8px; border-radius:2px; text-transform:uppercase; z-index:3;
+  opacity:0.92;
+}
+.work-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px;}
+.filter-btn{border:1px solid var(--line-strong); background:transparent; color:var(--text-mid); padding:8px 12px; border-radius:var(--radius); font-family:var(--mono); font-size:0.68rem; letter-spacing:0.07em; text-transform:uppercase; transition:all .2s ease;}
+.filter-btn:hover, .filter-btn[aria-pressed="true"]{color:var(--bg); background:var(--accent); border-color:var(--accent);}
+.project.is-hidden{display:none;}
+
+/* ===== GIS Lab ===== */
+.lab-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+.lab-panel{background:var(--bg-1); padding:clamp(22px,3vw,36px); min-width:0;}
+.lab-panel h3{font-size:1.2rem; font-weight:550; margin:10px 0 8px;}
+.lab-panel p{color:var(--text-mid); font-size:0.9rem; font-weight:300; max-width:480px;}
+.lab-visual{margin-top:24px; border:1px solid var(--line-strong); background:var(--bg-2); position:relative; overflow:hidden;}
+#coordinate-map{width:100%; height:auto; display:block; cursor:crosshair;}
+.lab-readout{display:flex; flex-wrap:wrap; gap:18px; margin-top:14px; font-family:var(--mono); font-size:0.72rem; color:var(--text-mid);}
+.lab-readout strong{color:var(--accent); font-weight:500;}
+.buffer-stage{height:230px; display:grid; place-items:center; position:relative;}
+.buffer-stage::before{content:""; width:150px; height:150px; border:1px dashed var(--accent-dim); border-radius:50%; position:absolute; opacity:.6;}
+.buffer-stage::after{content:""; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 8px rgba(211,162,90,.12);}
+.buffer-label{position:absolute; bottom:18px; left:18px; font-family:var(--mono); font-size:.68rem; color:var(--text-dim);}
+.satgis-module{margin-top:clamp(44px,7vh,80px); border:1px solid var(--line); background:rgba(13,17,20,.7);}
+.satgis-heading{padding:clamp(22px,3vw,34px); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:end; gap:20px; flex-wrap:wrap;}
+.satgis-heading h3{font-size:clamp(1.35rem,2.5vw,2rem); font-weight:550; margin-top:9px;}
+.satgis-heading p{color:var(--text-mid); font-size:.86rem; max-width:420px; font-weight:300;}
+.satgis-tabs{display:flex; flex-wrap:wrap; gap:8px; padding:18px clamp(18px,3vw,34px); border-bottom:1px solid var(--line);}
+.satgis-tab{border:1px solid var(--line-strong); background:transparent; color:var(--text-mid); padding:8px 11px; border-radius:var(--radius); font:500 .66rem var(--mono); letter-spacing:.07em; text-transform:uppercase;}
+.satgis-tab:hover,.satgis-tab[aria-selected="true"]{color:var(--bg); background:var(--accent); border-color:var(--accent);}
+.satgis-workspace{display:grid; grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr); align-items:stretch; gap:1px; background:var(--line);}
+.satgis-pane{background:var(--bg-1); padding:clamp(18px,2.5vw,30px); min-width:0;}
+.satgis-pane h4{font:500 .72rem var(--mono); letter-spacing:.12em; color:var(--accent); margin-bottom:14px;}
+.satgis-pane-meta{display:flex; justify-content:space-between; gap:10px; color:var(--text-dim); font: .64rem var(--mono); margin-bottom:10px; text-transform:uppercase;}
+.satgis-map{position:relative; aspect-ratio:1.45; min-height:190px; overflow:hidden; border:1px solid var(--line-strong); background-color:#121b1a; background-image:linear-gradient(rgba(234,230,221,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(234,230,221,.06) 1px,transparent 1px),radial-gradient(ellipse at 60% 45%,rgba(211,162,90,.2),transparent 42%); background-size:28px 28px,28px 28px,100% 100%;}
+.satgis-map::before{content:""; position:absolute; inset:14% 9%; border:1px solid rgba(211,162,90,.42); border-radius:47% 53% 44% 56%; transform:rotate(-11deg); box-shadow:inset 0 0 0 18px rgba(79,95,82,.1),inset 0 0 0 42px rgba(122,98,71,.08); opacity:var(--satgis-layer-opacity,1); transition:opacity .25s ease, background .25s ease, border-color .25s ease;}
+.satgis-map::after{content:""; position:absolute; inset:0; opacity:.42; background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(234,230,221,.08) 6px 7px); mix-blend-mode:screen;}
+.satgis-map[data-layer="ndvi"]{background-color:#17251e; filter:saturate(1.2);}
+.satgis-map[data-layer="ndvi"]::before{border-color:#7a93a0; box-shadow:inset 0 0 0 25px rgba(79,95,82,.2), inset 0 0 0 54px rgba(211,162,90,.08);}
+.satgis-map[data-layer="lulc"]{background-color:#20231b;}
+.satgis-map[data-layer="lulc"]::before{border-radius:8px 48% 16px 52%; border-style:dashed; border-color:#8a6f45;}
+.satgis-map[data-layer="terrain"]{background-color:#191b18; background-image:repeating-radial-gradient(ellipse at 55% 45%,transparent 0 18px,rgba(122,98,71,.22) 19px 20px); background-size:100% 100%;}
+.satgis-map[data-layer="buildings"]{background-color:#141b1b;}
+.satgis-map[data-layer="buildings"]::before{border:0; border-radius:0; box-shadow:none; background:repeating-linear-gradient(35deg,transparent 0 18px,rgba(211,162,90,.42) 19px 21px),repeating-linear-gradient(125deg,transparent 0 25px,rgba(122,147,160,.35) 26px 28px); transform:none; inset:20% 12%;}
+.satgis-map[data-layer="gis-result"]{background-color:#18201d;}
+.satgis-map[data-layer="gis-result"]::before{border-color:#d3a25a; box-shadow:inset 0 0 0 22px rgba(211,162,90,.1),inset 0 0 0 44px rgba(79,95,82,.16);}
+.satgis-stamp,.satgis-coords,.satgis-north{position:absolute; z-index:2; color:var(--text-mid); font: .58rem var(--mono); letter-spacing:.06em; text-transform:uppercase;}
+.satgis-stamp{top:10px; left:10px; color:var(--accent);}
+.satgis-coords{bottom:10px; left:10px; line-height:1.5;}
+.satgis-north{right:11px; bottom:10px; color:var(--accent);}
+.satgis-flow{display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; padding:18px 10px; background:var(--bg-2); color:var(--text-dim); font:500 .62rem var(--mono); letter-spacing:.08em; text-align:center;}
+.satgis-flow span:not(:last-child)::after{content:"↓"; display:block; color:var(--accent); font-size:1rem; margin-top:8px;}
+.satgis-controls{display:grid; grid-template-columns:minmax(180px,1fr) auto; gap:20px; align-items:center; padding:18px clamp(18px,3vw,34px); border-top:1px solid var(--line);}
+.satgis-range-label{color:var(--text-mid); font: .68rem var(--mono); letter-spacing:.08em; text-transform:uppercase;}
+.satgis-range-label output{color:var(--accent); margin-left:8px;}
+.satgis-controls input,.satgis-compare input{width:100%; accent-color:var(--accent);}
+.satgis-compare{padding:18px clamp(18px,3vw,34px) 26px; border-top:1px solid var(--line);}
+.satgis-compare-head{display:flex; justify-content:space-between; color:var(--text-mid); font: .66rem var(--mono); letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;}
+.satgis-compare-visual{position:relative; height:76px; overflow:hidden; border:1px solid var(--line-strong); background:#20251e; background-image:linear-gradient(135deg,transparent 45%,rgba(211,162,90,.25) 46% 48%,transparent 49%),linear-gradient(45deg,transparent 45%,rgba(122,147,160,.25) 46% 48%,transparent 49%);}
+.satgis-compare-visual::after{content:"DEMO CHANGE DETECTION"; position:absolute; inset:0; display:grid; place-items:center; color:var(--text-dim); font: .62rem var(--mono); letter-spacing:.1em;}
+.satgis-compare-visual .compare-after{position:absolute; inset:0 auto 0 0; width:50%; overflow:hidden; background:rgba(79,95,82,.35); border-right:1px solid var(--accent);}
+.satgis-compare-visual .compare-after::after{content:"AFTER"; position:absolute; right:8px; top:10px; color:var(--accent); font: .58rem var(--mono);}
+.satgis-compare input{margin-top:12px;}
+
+/* ===== GIS World detail ===== */
+.world-detail{border-top:1px solid var(--line); margin-top:24px; padding-top:20px; min-height:92px; color:var(--text-mid);}
+.world-detail strong{display:block; color:var(--accent); font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px;}
+.world-detail span{font-family:var(--mono); font-size:.76rem; margin-right:18px;}
+
+/* ===== GIS World ===== */
+.gis-world-wrap{
+  border:1px solid var(--line); border-radius:var(--radius); padding:clamp(20px,3vw,40px);
+  background:radial-gradient(ellipse at 50% 40%, rgba(122,98,71,0.08), transparent 70%);
+}
+#network-svg{width:100%; height:auto; display:block;}
+.node-circle{cursor:pointer; transition:r .2s ease;}
+.node-circle:hover, .node-circle:focus{filter:brightness(1.3);}
+.legend-row{display:flex; gap:26px; flex-wrap:wrap; margin-top:28px; font-family:var(--mono); font-size:0.72rem; color:var(--text-mid);}
+.legend-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px; vertical-align:middle;}
+
+/* ===== Contact ===== */
+.contact-section{text-align:center; padding-bottom:clamp(90px,14vh,150px);}
+.contact-headline{
+  font-size:clamp(1.8rem,5vw,3.2rem); font-weight:600; max-width:820px; margin:0 auto 40px; letter-spacing:-0.01em;
+}
+.contact-grid{
+  display:flex; justify-content:center; gap:clamp(20px,4vw,50px); flex-wrap:wrap; margin-bottom:40px;
+  font-family:var(--mono); font-size:0.86rem;
+}
+.contact-grid a, .contact-grid span{color:var(--text-mid); transition:color .2s ease;}
+.contact-grid a:hover{color:var(--accent);}
+.contact-ctas{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+
+footer{
+  padding:26px clamp(20px,4vw,56px); border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-family:var(--mono); font-size:0.68rem; color:var(--text-dim); position:relative; z-index:2;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px){
+  .nav-toggle{display:block;}
+  nav.links{position:absolute; top:68px; left:20px; right:20px; display:none; flex-direction:column; align-items:stretch; gap:4px; padding:10px; background:rgba(13,17,20,.97); border:1px solid var(--line-strong);}
+  nav.links.is-open{display:flex;}
+  nav.links a{padding:11px 10px;}
+  nav.links a:not(.cv-btn){display:block;}
+  nav.links a.cv-btn{text-align:center; margin-top:4px;}
+  .profile-strip{grid-template-columns:1fr; text-align:center;}
+  .profile-photo{margin:0 auto;}
+  .profile-facts{justify-content:center;}
+  .project, .project.reverse{grid-template-columns:1fr; grid-template-areas:none;}
+  .project.reverse .project-visual{order:0;}
+  .hero-coords{flex-wrap:wrap; gap:10px;}
+  .hero-layout{grid-template-columns:1fr; gap:24px;}
+  .earth-emblem{width:min(58vw,260px); justify-self:center; grid-row:1; opacity:.58;}
+  .hero-content{grid-row:2;}
+  .lab-grid{grid-template-columns:1fr;}
+  .satgis-workspace{grid-template-columns:1fr;}
+  .satgis-flow{flex-direction:row; flex-wrap:wrap; justify-content:space-around; padding:16px;}
+  .satgis-flow span:not(:last-child)::after{content:"→"; display:inline; margin:0 0 0 10px;}
+  .satgis-controls{grid-template-columns:1fr; gap:12px;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width: 520px){
+  h1.hero-name{font-size:2.4rem;}
+  section{padding:60px 18px;}
+  .skills-grid{grid-template-columns:1fr;}
+  .gis-atmosphere svg{opacity:.48;}
+  .atmosphere-label{font-size:8px;}
+  .earth-emblem{width:min(62vw,220px);}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  .atmosphere-contours{animation:none !important;}
+  .gis-atmosphere svg{transform:none !important;}
+  .earth-emblem .earth-route{animation:none !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="gis-atmosphere" id="gis-atmosphere" aria-hidden="true">
+  <svg id="atmosphere-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="atmosphereWash" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#4f5f52" stop-opacity=".08"/>
+        <stop offset=".55" stop-color="#11161a" stop-opacity="0"/>
+        <stop offset="1" stop-color="#7a6247" stop-opacity=".06"/>
+      </linearGradient>
+      <pattern id="rasterPattern" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" fill="none" stroke="#7a93a0" stroke-opacity=".04" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#atmosphereWash)"/>
+    <rect width="1600" height="1000" fill="url(#rasterPattern)" opacity=".6"/>
+    <g class="atmosphere-grid" id="atmosphere-grid"></g>
+    <g class="atmosphere-contours" id="atmosphere-contours"></g>
+    <g class="atmosphere-links" id="atmosphere-links"></g>
+    <g id="atmosphere-nodes"></g>
+    <g class="atmosphere-label">
+      <text x="72" y="160">LAT 17.0577° N</text>
+      <text x="72" y="178">LON 74.6887° E</text>
+      <text x="1330" y="820">SCALE 1:25,000</text>
+      <text x="1330" y="838">RASTER / VECTOR</text>
+    </g>
+  </svg>
+</div>
+
+<header class="site-nav">
+  <a href="#home" class="brand"><strong>S.</strong>GURAV</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
+  <nav class="links" id="primary-navigation" aria-label="Primary">
+    <a href="#home">01 Home</a>
+    <a href="#about">02 About</a>
+    <a href="#journey">04 Journey</a>
+    <a href="#work">05 Selected&nbsp;Work</a>
+    <a href="#gis-lab">06 GIS&nbsp;Lab</a>
+    <a href="#gis-world">07 GIS&nbsp;World</a>
+    <a href="#contact">08 Contact</a>
+    <a href="#" class="cv-btn" id="view-cv">View CV</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="hero" aria-label="Introduction">
+  <div class="hero-canvas" aria-hidden="true">
+    <svg id="terrain-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d1114"/>
+          <stop offset="55%" stop-color="#11161a"/>
+          <stop offset="100%" stop-color="#161b16"/>
+        </linearGradient>
+        <radialGradient id="glow" cx="50%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#d3a25a" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#d3a25a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1600" height="900" fill="url(#skyGrad)"/>
+      <rect width="1600" height="900" fill="url(#glow)"/>
+      <!-- coordinate grid -->
+      <g id="grid-group" stroke="#eae6dd" stroke-opacity="0.05" stroke-width="1"></g>
+      <!-- contour lines -->
+      <g id="contour-group" fill="none" stroke="#7a6247" stroke-opacity="0.5" stroke-width="1"></g>
+      <!-- spatial points -->
+      <g id="points-group" fill="#d3a25a"></g>
+    </svg>
+  </div>
+  <div class="hero-vignette" aria-hidden="true"></div>
+
+  <div class="hero-layout">
+    <div class="hero-content">
+      <div class="hero-coords mono" aria-hidden="true">
+        <span id="lat-readout">LAT 16.7050° N</span>
+        <span id="lon-readout">LON 74.2433° E</span>
+        <span id="elev-readout">ELEV 546 M</span>
+      </div>
+      <h1 class="hero-name">Sushant Gurav</h1>
+      <div class="hero-role"><strong>GIS ANALYST</strong> <span class="sep">·</span> GEOINFORMATICS</div>
+      <div class="hero-focus" aria-label="Professional focus">
+        <span>GIS · REMOTE SENSING</span>
+        <span>SPATIAL DATA · WEB GIS</span>
+      </div>
+      <p class="hero-line">I work with geographic data, mapping, spatial analysis, remote sensing and GIS technologies to understand places, patterns and change.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">Explore Work</a>
+        <a href="#" class="btn btn-ghost view-cv">View CV</a>
+      </div>
+    </div>
+    <div class="earth-emblem" aria-hidden="true">
+      <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+        <circle class="earth-shell" cx="180" cy="180" r="124"></circle>
+        <ellipse class="earth-grid" cx="180" cy="180" rx="68" ry="124"></ellipse>
+        <ellipse class="earth-grid" cx="180" cy="180" rx="124" ry="48"></ellipse>
+        <path class="earth-grid" d="M56 180h248M180 56v248"></path>
+        <path class="earth-route" d="M86 218c28-70 72-86 102-34s50 53 86-12"></path>
+        <circle class="earth-node" cx="120" cy="184" r="4"></circle>
+        <circle class="earth-node" cx="180" cy="150" r="4"></circle>
+        <circle class="earth-node" cx="238" cy="172" r="4"></circle>
+        <circle class="earth-node" cx="274" cy="160" r="3"></circle>
+        <text x="180" y="132" text-anchor="middle">EARTH</text>
+        <text x="180" y="244" text-anchor="middle">GIS / SPATIAL DATA</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="scroll-line"></span> Scroll
+  </div>
+</section>
+
+<!-- ============ PROFILE + JOURNEY ============ -->
+<section id="journey" aria-label="Journey">
+  <div class="profile-strip reveal">
+    <div class="profile-photo">
+      <img
+        src="./sushant.jpg"
+        alt="Portrait of Sushant Gurav"
+        width="132"
+        height="132"
+        loading="lazy"
+      >
+    </div>
+    <div class="profile-facts">
+      <div>
+        <strong>Kolhapur, Maharashtra, India</strong>
+        Based in
+      </div>
+      <div>
+        <strong>M.Sc. Geoinformatics</strong>
+        Shivaji University, 2023–25
+      </div>
+      <div>
+        <strong>GIS Analyst</strong>
+        Thane Municipal Corporation Project, since 04/2025
+      </div>
+    </div>
+  </div>
+
+  <div id="about" class="section-head reveal">
+    <span class="section-num">02 — Who I am</span>
+    <h2 class="section-title">Geography, made operational.</h2>
+    <p class="section-sub">A GIS Analyst with an academic foundation in Geography and Geoinformatics, working across spatial data, mapping, analysis, remote sensing, Web GIS and automation.</p>
+  </div>
+  <div class="profile-facts about-facts reveal">
+    <div><strong>GIS Analyst</strong>Spatial analysis &amp; QA/QC</div>
+    <div><strong>Geoinformatics</strong>Spatial data &amp; mapping</div>
+    <div><strong>Remote Sensing</strong>Earth observation workflows</div>
+    <div><strong>GIS Technology</strong>Web GIS &amp; automation</div>
+  </div>
+
+  <div class="section-head reveal">
+      <span class="section-num">03 — What I work with</span>
+      <h2 class="section-title">Tools for spatial questions.</h2>
+      <p class="section-sub">A working set grounded in the GIS, remote sensing, Web GIS and automation workflows already represented in this portfolio.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-group"><strong>GIS</strong><span>ArcGIS Pro</span><span>QGIS</span><span>ArcMap</span></div>
+      <div class="skill-group"><strong>Remote Sensing</strong><span>Google Earth Engine</span><span>Satellite Data</span><span>Raster Analysis</span></div>
+      <div class="skill-group"><strong>Programming / Automation</strong><span>Python</span><span>ArcPy</span><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+      <div class="skill-group"><strong>Web GIS</strong><span>ArcGIS Online</span><span>Experience Builder</span><span>Web Mapping</span></div>
+      <div class="skill-group"><strong>Spatial Analysis</strong><span>Overlay</span><span>Buffer</span><span>Terrain Analysis</span><span>NDVI</span><span>QA/QC</span></div>
+      <div class="skill-group"><strong>Data</strong><span>Spatial Databases</span><span>Geodatabases</span><span>Shapefile</span><span>Raster Data</span><span>CSV</span></div>
+    </div>
+
+  <div class="section-head reveal">
+    <span class="section-num">04 — Journey</span>
+    <h2 class="section-title">From geography to data.</h2>
+    <p class="section-sub">A short spatial path — how a foundation in geography turned into hands-on work with municipal GIS, spatial databases and Earth observation.</p>
+  </div>
+
+  <div class="journey-path">
+    <div class="node reveal">
+      <div class="node-eyebrow">Foundation</div>
+      <h3>Geography</h3>
+      <p>M.A. Geography at Shivaji University, Kolhapur — the starting point for reading landscapes, human settlement and spatial relationships.</p>
+      <div class="meta"><span>06/2021 – 04/2023</span><span>Kolhapur</span></div>
+    </div>
+
+    <div class="node reveal">
+      <div class="node-eyebrow">Specialisation</div>
+      <h3>Geoinformatics</h3>
+      <p>M.Sc. Geoinformatics, building technical depth in GIS, remote sensing and spatial analysis on top of a geography foundation.</p>
+      <div class="meta"><span>06/2023 – 04/2025</span><span>Kolhapur</span></div>
+    </div>
+
+    <div class="node reveal">
+      <div class="node-eyebrow">Applied Practice</div>
+      <h3>GIS &amp; Spatial Data</h3>
+      <p>Working hands-on with municipal geospatial datasets — digitisation, QA/QC, topology validation and geodatabase management.</p>
+      <div class="exp-card">
+        <div class="role-line">
+          <span class="role">GIS Analyst</span>
+          <span class="org">Sthapatya Consultants Pvt. Ltd. · Thane Municipal Corporation GIS Project</span>
+        </div>
+        <div class="meta" style="margin-top:-4px; margin-bottom:12px;"><span>Since 04/2025</span><span>Thane</span></div>
+        <ul>
+          <li>Managed and maintained large-scale municipal GIS datasets supporting property tax assessment, urban planning and infrastructure mapping.</li>
+          <li>Executed building footprint digitisation, parcel boundary validation and spatial attribute updates using ArcGIS Pro and QGIS.</li>
+          <li>Performed GIS QA/QC, topology validation, spatial data verification and error correction across municipal geospatial databases.</li>
+          <li>Automated repetitive GIS workflows using Python and ArcPy.</li>
+          <li>Developed and deployed QField mobile GIS projects for field verification and synchronised spatial updates.</li>
+          <li>Supported Web GIS applications using ArcGIS Online and Experience Builder.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Municipal GIS</span><span class="tag">Spatial Databases</span><span class="tag">QA/QC</span>
+          <span class="tag">Topology</span><span class="tag">Automation</span><span class="tag">Web GIS</span><span class="tag">Field GIS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="node-eyebrow">Earth Observation</div>
+      <h3>Remote Sensing</h3>
+      <p>Applying satellite-derived data and remote sensing techniques to environmental and ecological questions.</p>
+      <div class="exp-card">
+        <div class="role-line">
+          <span class="role">GIS Intern</span>
+          <span class="org">Sahyadri Tiger Reserve</span>
+        </div>
+        <div class="meta" style="margin-top:-4px; margin-bottom:12px;"><span>05/2024 – 06/2024</span><span>Karad</span></div>
+        <ul>
+          <li>Collected, processed and managed geospatial datasets supporting wildlife habitat monitoring and biodiversity conservation.</li>
+          <li>Performed LULC mapping and NDVI analysis using remote sensing techniques.</li>
+          <li>Prepared thematic maps and cartographic outputs; assisted with geodatabase management and field data collection.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">LULC Mapping</span><span class="tag">NDVI</span><span class="tag">Remote Sensing</span><span class="tag">Cartography</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="node-eyebrow">Direction</div>
+      <h3>Real-World Applications</h3>
+      <p>Developing toward modern spatial analysis, Web GIS and geospatial automation — applied to municipal infrastructure, environmental monitoring and disaster-risk assessment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
+<section id="work" aria-label="Selected Work">
+  <div class="section-head reveal">
+    <span class="section-num">05 — Selected Work</span>
+    <h2 class="section-title">Three ways of asking spatial questions.</h2>
+    <p class="section-sub">Question, data, process, analysis, output — the shape every GIS project follows.</p>
+  </div>
+
+  <div class="work-filters" role="group" aria-label="Filter selected work">
+    <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All</button>
+    <button class="filter-btn" type="button" data-filter="web-gis">Web GIS</button>
+    <button class="filter-btn" type="button" data-filter="gis">GIS</button>
+    <button class="filter-btn" type="button" data-filter="remote-sensing">Remote Sensing</button>
+    <button class="filter-btn" type="button" data-filter="environment">Environment</button>
+  </div>
+
+  <!-- Project 1 -->
+  <article class="project reveal" data-category="gis remote-sensing environment">
+    <div class="project-info">
+      <div class="p-index mono">01 · Disaster Risk</div>
+      <h3>Landslide Susceptibility Mapping</h3>
+      <p class="desc">A GIS-based landslide susceptibility model combining terrain, land cover and rainfall data with machine learning classifiers, built to support disaster-risk assessment.</p>
+      <div class="pipeline">
+        <span class="step">DEM</span><span class="arrow">→</span><span class="step">LULC</span><span class="arrow">→</span><span class="step">NDVI</span><span class="arrow">→</span><span class="step">Rainfall</span><span class="arrow">→</span><span class="step">Geology</span>
+        <span class="arrow">→</span><span class="step" style="color:var(--accent); border-color:var(--accent);">RF / SVM / XGBoost</span><span class="arrow">→</span><span class="step">Susceptibility Map</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag">ArcGIS Pro</span><span class="tag">QGIS</span><span class="tag">Python</span><span class="tag">Google Earth Engine</span>
+      </div>
+    </div>
+    <div class="project-visual" aria-hidden="true">
+      <div class="demo-badge">Conceptual Visual</div>
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#0d1114"/>
+        <g id="dem-layers"></g>
+      </svg>
+    </div>
+  </article>
+
+  <!-- Project 2 -->
+  <article class="project reverse reveal" data-category="web-gis gis">
+    <div class="project-info">
+      <div class="p-index mono">02 · Municipal GIS</div>
+      <h3>Municipal Property Tax Web GIS</h3>
+      <p class="desc">An interactive Web GIS application for municipal property visualisation and management — published web maps with configured search, pop-ups and layer control.</p>
+      <div class="pipeline">
+        <span class="step">Buildings</span><span class="arrow">→</span><span class="step">Parcels</span><span class="arrow">→</span><span class="step">Attributes</span><span class="arrow">→</span><span class="step" style="color:var(--accent); border-color:var(--accent);">Web Map</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag">ArcGIS Online</span><span class="tag">Experience Builder</span><span class="tag">ArcGIS Pro</span>
+      </div>
+    </div>
+    <div class="project-visual" aria-hidden="true">
+      <div class="demo-badge">Demo Data</div>
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#0d1114"/>
+        <g id="cadastral-layers"></g>
+      </svg>
+    </div>
+  </article>
+
+  <!-- Project 3 -->
+  <article class="project reveal" data-category="gis environment">
+    <div class="project-info">
+      <div class="p-index mono">03 · Urban Risk</div>
+      <h3>Urban Waterlogging Hazard Assessment</h3>
+      <p class="desc">Raster and vector-based spatial analysis integrating elevation and land-use data to identify waterlogging-prone areas and support urban risk assessment.</p>
+      <div class="pipeline">
+        <span class="step">Elevation</span><span class="arrow">+</span><span class="step">Land Use</span><span class="arrow">→</span><span class="step" style="color:var(--accent); border-color:var(--accent);">Raster / Vector Analysis</span><span class="arrow">→</span><span class="step">Hazard Map</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag">ArcGIS Pro</span><span class="tag">QGIS</span>
+      </div>
+    </div>
+    <div class="project-visual" aria-hidden="true">
+      <div class="demo-badge">Conceptual Visual</div>
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#0d1114"/>
+        <g id="flood-layers"></g>
+      </svg>
+    </div>
+  </article>
+</section>
+
+<!-- ============ GIS LAB ============ -->
+<section id="gis-lab" aria-label="GIS Lab">
+  <div class="section-head reveal">
+    <span class="section-num">06 — GIS Lab</span>
+    <h2 class="section-title">Small spatial instruments.</h2>
+    <p class="section-sub">Lightweight demonstrations of geographic thinking. These are demo visualizations, not project outputs.</p>
+  </div>
+  <div class="lab-grid reveal">
+    <div class="lab-panel">
+      <span class="eyebrow">DEMO VISUALIZATION</span>
+      <h3>Coordinate Explorer</h3>
+      <p>Move across the coordinate plane to inspect a changing latitude and longitude readout.</p>
+      <div class="lab-visual">
+        <svg id="coordinate-map" viewBox="0 0 640 300" role="img" aria-label="Interactive coordinate plane demo">
+          <rect width="640" height="300" fill="#0d1114"></rect>
+          <g stroke="#eae6dd" stroke-opacity=".08" stroke-width="1">
+            <path d="M0 60H640M0 120H640M0 180H640M0 240H640M128 0V300M256 0V300M384 0V300M512 0V300"></path>
+          </g>
+          <path d="M20 238 C120 180 165 226 248 156 S390 90 470 150 S570 190 620 80" fill="none" stroke="#7a6247" stroke-opacity=".65"></path>
+          <circle id="coordinate-point" cx="320" cy="150" r="5" fill="#d3a25a"></circle>
+        </svg>
+      </div>
+      <div class="lab-readout"><span>LAT <strong id="lab-lat">17.0577° N</strong></span><span>LON <strong id="lab-lon">74.6887° E</strong></span></div>
+    </div>
+    <div class="lab-panel">
+      <span class="eyebrow">DEMO VISUALIZATION</span>
+      <h3>Spatial Buffer</h3>
+      <p>A point and its surrounding analysis distance, expressed as a simple GIS operation.</p>
+      <div class="lab-visual buffer-stage" aria-label="Point buffer demonstration">
+        <span class="buffer-label">POINT → BUFFER → AREA OF INTEREST</span>
+      </div>
+      <div class="lab-readout"><span>METHOD <strong>BUFFER</strong></span><span>DATA <strong>DEMO POINT</strong></span></div>
+    </div>
+  </div>
+
+  <div class="satgis-module reveal" aria-label="Satellite to GIS visualization">
+    <div class="satgis-heading">
+      <div>
+        <span class="eyebrow">SATELLITE → GIS</span>
+        <h3>From sensed surface to spatial layer.</h3>
+      </div>
+      <p>Switch layers to follow a remote-sensing workflow from source data through processing and GIS output.</p>
+    </div>
+    <div class="satgis-tabs" role="tablist" aria-label="Satellite and GIS layers">
+      <button class="satgis-tab" type="button" role="tab" aria-selected="true" aria-controls="satgis-source" data-satgis-layer="satellite">Satellite</button>
+      <button class="satgis-tab" type="button" role="tab" aria-selected="false" aria-controls="satgis-source" data-satgis-layer="ndvi">NDVI</button>
+      <button class="satgis-tab" type="button" role="tab" aria-selected="false" aria-controls="satgis-source" data-satgis-layer="lulc">LULC</button>
+      <button class="satgis-tab" type="button" role="tab" aria-selected="false" aria-controls="satgis-source" data-satgis-layer="terrain">Terrain</button>
+      <button class="satgis-tab" type="button" role="tab" aria-selected="false" aria-controls="satgis-source" data-satgis-layer="buildings">Buildings</button>
+      <button class="satgis-tab" type="button" role="tab" aria-selected="false" aria-controls="satgis-source" data-satgis-layer="gis-result">GIS Result</button>
+    </div>
+    <div class="satgis-workspace">
+      <article class="satgis-pane">
+        <h4>SATELLITE DATA</h4>
+        <div class="satgis-pane-meta"><span id="satgis-source-name">SATELLITE IMAGE</span><span>DEMO</span></div>
+        <div class="satgis-map" id="satgis-source" data-layer="satellite" role="img" aria-label="Demo satellite data visualization">
+          <span class="satgis-stamp">DEMO VISUALIZATION</span>
+          <span class="satgis-coords">LAT 17.0577° N<br>LON 74.6887° E</span>
+          <span class="satgis-north">N ↑</span>
+        </div>
+      </article>
+      <div class="satgis-flow" aria-label="Processing workflow">
+        <span>SATELLITE DATA</span><span>REMOTE SENSING</span><span>PROCESSING</span><span>GIS LAYER</span>
+      </div>
+      <article class="satgis-pane">
+        <h4>GIS OUTPUT</h4>
+        <div class="satgis-pane-meta"><span id="satgis-output-name">GIS RESULT</span><span>10M RESOLUTION</span></div>
+        <div class="satgis-map" id="satgis-output" data-layer="gis-result" role="img" aria-label="Demo GIS output visualization">
+          <span class="satgis-stamp">DEMO VISUALIZATION</span>
+          <span class="satgis-coords">LAYER: GIS RESULT<br>SCALE 1:25,000</span>
+          <span class="satgis-north">N ↑</span>
+        </div>
+      </article>
+    </div>
+    <div class="satgis-controls">
+      <label class="satgis-range-label" for="satgis-opacity">Layer opacity <output id="satgis-opacity-value" for="satgis-opacity">65%</output></label>
+      <input id="satgis-opacity" type="range" min="0" max="100" value="65" aria-label="Layer opacity">
+    </div>
+    <div class="satgis-compare">
+      <div class="satgis-compare-head"><span>Before ← change detection → After</span><span>Demo visualization</span></div>
+      <div class="satgis-compare-visual"><div class="compare-after" id="satgis-after"></div></div>
+      <input id="satgis-compare-range" type="range" min="0" max="100" value="50" aria-label="Before and after comparison position">
+    </div>
+  </div>
+</section>
+
+<!-- ============ GIS WORLD ============ -->
+<section id="gis-world" aria-label="GIS World">
+  <div class="section-head reveal">
+    <span class="section-num">07 — GIS World</span>
+    <h2 class="section-title">A map of capability.</h2>
+    <p class="section-sub">Current tools sit at the centre; broader areas of exploration extend outward. Hover or tap a node.</p>
+  </div>
+  <div class="gis-world-wrap reveal">
+    <svg id="network-svg" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of GIS skills and areas of exploration, centred on GIS">
+      <g id="network-links" stroke="#eae6dd" stroke-opacity="0.14" stroke-width="1"></g>
+      <g id="network-nodes"></g>
+    </svg>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:#d3a25a;"></span>Current toolset</span>
+      <span><span class="legend-dot" style="background:#4f5f52;"></span>Exploring</span>
+    </div>
+    <div class="world-detail" id="world-detail" aria-live="polite">
+      <strong>Select a node</strong>
+      <span>Tools, projects and applications will appear here.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact-section" aria-label="Contact">
+  <div class="reveal">
+    <span class="eyebrow">08 — Contact</span>
+    <h2 class="contact-headline" style="margin-top:16px;">Let's explore the world through data.</h2>
+    <div class="contact-grid">
+      <a href="mailto:geosushant05@gmail.com">geosushant05@gmail.com</a>
+      <a href="tel:+919373259980">+91 93732 59980</a>
+      <span>Kolhapur, Maharashtra, India</span>
+    </div>
+    <div class="contact-ctas">
+      <a href="#" class="btn btn-primary view-cv">Download CV</a>
+      <a href="https://www.linkedin.com/in/sushant-gurav/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bdp8Pv0%2BvQ2OFPVIoUaTUpA%3D%3D" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn Profile</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© <span id="year"></span> Sushant Gurav</span>
+  <span>Built with GIS in mind.</span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---- Unified GIS atmosphere ---- */
+  var atmosphere = document.getElementById('gis-atmosphere');
+  var atmosphereSvg = document.getElementById('atmosphere-svg');
+  var atmosphereGrid = document.getElementById('atmosphere-grid');
+  var atmosphereContours = document.getElementById('atmosphere-contours');
+  var atmosphereLinks = document.getElementById('atmosphere-links');
+  var atmosphereNodes = document.getElementById('atmosphere-nodes');
+  var gridMarkup = '';
+  for (var gridX = 0; gridX <= 1600; gridX += 100){ gridMarkup += '<line x1="'+gridX+'" y1="0" x2="'+gridX+'" y2="1000"></line>'; }
+  for (var gridY = 0; gridY <= 1000; gridY += 100){ gridMarkup += '<line x1="0" y1="'+gridY+'" x2="1600" y2="'+gridY+'"></line>'; }
+  atmosphereGrid.innerHTML = gridMarkup;
+
+  var contourMarkup = '';
+  for (var contourIndex = 0; contourIndex < 7; contourIndex++){
+    var contourY = 245 + contourIndex * 82;
+    var contourWidth = 270 + contourIndex * 42;
+    var contourHeight = 48 + contourIndex * 7;
+    var contourX = 790 - contourWidth / 2;
+    contourMarkup += '<path d="M '+contourX.toFixed(1)+' '+contourY+' C '+(contourX + contourWidth * .18).toFixed(1)+' '+(contourY - contourHeight).toFixed(1)+', '+(contourX + contourWidth * .36).toFixed(1)+' '+(contourY - contourHeight).toFixed(1)+', '+(contourX + contourWidth * .52).toFixed(1)+' '+contourY+' S '+(contourX + contourWidth * .84).toFixed(1)+' '+(contourY + contourHeight).toFixed(1)+', '+(contourX + contourWidth).toFixed(1)+' '+contourY+'"></path>';
+  }
+  atmosphereContours.innerHTML = contourMarkup;
+
+  var spatialNodes = [[210,260],[420,195],[650,315],[880,230],[1080,360],[1315,275],[1180,585],[790,700],[450,625]];
+  var nodeMarkup = '';
+  var linkMarkup = '';
+  spatialNodes.forEach(function(node, index){
+    if (index > 0){
+      var previous = spatialNodes[index - 1];
+      linkMarkup += '<line x1="'+previous[0]+'" y1="'+previous[1]+'" x2="'+node[0]+'" y2="'+node[1]+'"></line>';
+    }
+    if (index === 2 || index === 5){
+      linkMarkup += '<line x1="'+node[0]+'" y1="'+node[1]+'" x2="790" y2="700"></line>';
+    }
+    nodeMarkup += '<circle class="atmosphere-ring" cx="'+node[0]+'" cy="'+node[1]+'" r="12"></circle><circle class="atmosphere-node" data-node-index="'+index+'" cx="'+node[0]+'" cy="'+node[1]+'" r="3"></circle>';
+  });
+  atmosphereLinks.innerHTML = linkMarkup;
+  atmosphereNodes.innerHTML = nodeMarkup;
+
+  var pointer = {x:800, y:500};
+  var pointerFrame = 0;
+  function updateAtmosphere(){
+    pointerFrame = 0;
+    if (reduced) return;
+    var svgPointX = pointer.x / window.innerWidth * 1600;
+    var svgPointY = pointer.y / window.innerHeight * 1000;
+    var nearX = (svgPointX - 800) * 0.006;
+    var nearY = (svgPointY - 500) * 0.004;
+    atmosphereNodes.style.transform = 'translate('+nearX.toFixed(2)+'px,'+nearY.toFixed(2)+'px)';
+    atmosphereLinks.style.transform = 'translate('+(nearX * .55).toFixed(2)+'px,'+(nearY * .55).toFixed(2)+'px)';
+    atmosphereSvg.style.setProperty('--map-focus-x', (svgPointX / 16).toFixed(2) + '%');
+  }
+  if (!reduced){
+    window.addEventListener('pointermove', function(event){
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      if (!pointerFrame) pointerFrame = window.requestAnimationFrame(updateAtmosphere);
+    }, {passive:true});
+  }
+  var atmosphereSections = [
+    ['home','home'], ['journey','journey'], ['work','work'], ['gis-lab','lab'], ['gis-world','world'], ['contact','contact']
+  ];
+  function updateAtmosphereZone(){
+    var currentZone = 'home';
+    atmosphereSections.forEach(function(item){
+      var section = document.getElementById(item[0]);
+      if (section && section.getBoundingClientRect().top <= window.innerHeight * .46) currentZone = item[1];
+    });
+    atmosphere.setAttribute('data-zone', currentZone);
+  }
+  updateAtmosphereZone();
+  window.addEventListener('scroll', updateAtmosphereZone, {passive:true});
+
+  var navToggle = document.querySelector('.nav-toggle');
+  var primaryNavigation = document.getElementById('primary-navigation');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!isOpen));
+    primaryNavigation.classList.toggle('is-open', !isOpen);
+  });
+  primaryNavigation.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      navToggle.setAttribute('aria-expanded', 'false');
+      primaryNavigation.classList.remove('is-open');
+    });
+  });
+
+  /* ---- CV placeholder ---- */
+  document.querySelectorAll('.view-cv, #view-cv').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      alert('CV placeholder: add the file at /public/Sushant-Gurav-CV.pdf and point this button to it.');
+    });
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(function(button){
+    button.addEventListener('click', function(){
+      var filter = button.getAttribute('data-filter');
+      document.querySelectorAll('.filter-btn').forEach(function(item){
+        item.setAttribute('aria-pressed', String(item === button));
+      });
+      document.querySelectorAll('.project[data-category]').forEach(function(project){
+        var categories = project.getAttribute('data-category').split(' ');
+        project.classList.toggle('is-hidden', filter !== 'all' && categories.indexOf(filter) === -1);
+      });
+    });
+  });
+  /* ---- Coordinate grid ---- */
+  var gridGroup = document.getElementById('grid-group');
+  var gridHTML = '';
+  for (var x = 0; x <= 1600; x += 80){ gridHTML += '<line x1="'+x+'" y1="0" x2="'+x+'" y2="900"></line>'; }
+  for (var y = 0; y <= 900; y += 80){ gridHTML += '<line x1="0" y1="'+y+'" x2="1600" y2="'+y+'"></line>'; }
+  gridGroup.innerHTML = gridHTML;
+
+  /* ---- Contour lines (layered sine-based ridges) ---- */
+  var contourGroup = document.getElementById('contour-group');
+  function contourPath(baseY, amp, freq, phase){
+    var d = 'M 0 ' + baseY;
+    for (var x = 0; x <= 1600; x += 20){
+      var y = baseY + Math.sin((x / 1600) * Math.PI * freq + phase) * amp;
+      d += ' L ' + x + ' ' + y.toFixed(1);
+    }
+    return d;
+  }
+  var contourHTML = '';
+  var bands = [ [560,26,3,0.2],[610,34,2.4,1.1],[660,20,3.6,2.0],[710,30,2,0.6],[760,40,2.8,1.8],[810,24,3.2,0.4],[850,18,2.6,2.4] ];
+  bands.forEach(function(b, i){
+    contourHTML += '<path d="'+contourPath(b[0], b[1], b[2], b[3])+'" stroke-opacity="'+(0.55 - i*0.05)+'"></path>';
+  });
+  contourGroup.innerHTML = contourHTML;
+
+  /* ---- Spatial points ---- */
+  var pointsGroup = document.getElementById('points-group');
+  var pts = [[220,520],[460,600],[740,540],[980,610],[1240,560],[1400,640],[140,660]];
+  var pointsHTML = '';
+  pts.forEach(function(p){
+    pointsHTML += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" fill-opacity="0.75"></circle>';
+    pointsHTML += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="none" stroke="#d3a25a" stroke-opacity="0.3" stroke-width="1"></circle>';
+  });
+  pointsGroup.innerHTML = pointsHTML;
+
+  /* ---- Hero coordinate readout ---- */
+  var latEl = document.getElementById('lat-readout');
+  var lonEl = document.getElementById('lon-readout');
+  if (!reduced){
+    document.querySelector('.hero').addEventListener('pointermove', function(e){
+      var rect = this.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width;   // 0..1
+      var py = (e.clientY - rect.top) / rect.height;    // 0..1
+      var lat = (16.7050 + (0.5 - py) * 0.9).toFixed(4);
+      var lon = (74.2433 + (px - 0.5) * 0.9).toFixed(4);
+      latEl.textContent = 'LAT ' + lat + '° N';
+      lonEl.textContent = 'LON ' + lon + '° E';
+    });
+  }
+
+  /* ---- Project micro-visuals ---- */
+  function buildLayerStack(id, colors, labels){
+    var el = document.getElementById(id);
+    var html = '';
+    colors.forEach(function(c, i){
+      var y = 40 + i * 34;
+      var w = 320 - i * 18;
+      var x = 40 + i * 9;
+      html += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="18" rx="2" fill="'+c+'" fill-opacity="'+(0.85 - i*0.1)+'" stroke="#eae6dd" stroke-opacity="0.15"></rect>';
+      html += '<text x="'+(x+10)+'" y="'+(y+13)+'" font-family="IBM Plex Mono, monospace" font-size="9" fill="#eae6dd" fill-opacity="0.75">'+labels[i]+'</text>';
+    });
+    el.innerHTML = html;
+  }
+  buildLayerStack('dem-layers', ['#7a6247','#8a7050','#4f5f52','#5c6b58','#d3a25a'], ['DEM','LULC','NDVI','RAINFALL','SUSCEPTIBILITY']);
+  buildLayerStack('cadastral-layers', ['#4f5f52','#5c6b58','#7a93a0','#d3a25a'], ['BUILDINGS','PARCELS','ATTRIBUTES','WEB MAP']);
+  buildLayerStack('flood-layers', ['#7a93a0','#5c6b58','#d3a25a'], ['ELEVATION','LAND USE','HAZARD ZONES']);
+
+  var coordinateMap = document.getElementById('coordinate-map');
+  var coordinatePoint = document.getElementById('coordinate-point');
+  var labLat = document.getElementById('lab-lat');
+  var labLon = document.getElementById('lab-lon');
+  coordinateMap.addEventListener('pointermove', function(event){
+    var rect = coordinateMap.getBoundingClientRect();
+    var px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    var py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    coordinatePoint.setAttribute('cx', (px * 640).toFixed(1));
+    coordinatePoint.setAttribute('cy', (py * 300).toFixed(1));
+    labLat.textContent = (17.5 - py * 0.9).toFixed(4) + '° N';
+    labLon.textContent = (74.2 + px * 0.9).toFixed(4) + '° E';
+  });
+
+  /* ---- Satellite to GIS layer workspace ---- */
+  var satgisLayers = {
+    satellite: ['SATELLITE IMAGE', 'GIS RESULT'],
+    ndvi: ['NDVI LAYER', 'NDVI GIS LAYER'],
+    lulc: ['LULC LAYER', 'CLASSIFIED GIS LAYER'],
+    terrain: ['TERRAIN LAYER', 'DEM GIS LAYER'],
+    buildings: ['BUILDING LAYER', 'BUILDING FOOTPRINTS'],
+    'gis-result': ['GIS RESULT', 'FINAL GIS LAYER']
+  };
+  var satgisSource = document.getElementById('satgis-source');
+  var satgisOutput = document.getElementById('satgis-output');
+  var satgisSourceName = document.getElementById('satgis-source-name');
+  var satgisOutputName = document.getElementById('satgis-output-name');
+  var satgisOpacity = document.getElementById('satgis-opacity');
+  var satgisOpacityValue = document.getElementById('satgis-opacity-value');
+  document.querySelectorAll('.satgis-tab').forEach(function(tab, tabIndex, tabs){
+    tab.addEventListener('click', function(){
+      var layer = tab.getAttribute('data-satgis-layer');
+      var names = satgisLayers[layer];
+      document.querySelectorAll('.satgis-tab').forEach(function(item){ item.setAttribute('aria-selected', String(item === tab)); });
+      satgisSource.setAttribute('data-layer', layer);
+      satgisOutput.setAttribute('data-layer', layer);
+      satgisSourceName.textContent = names[0];
+      satgisOutputName.textContent = names[1];
+    });
+    tab.addEventListener('keydown', function(event){
+      var nextIndex = tabIndex;
+      if (event.key === 'ArrowRight') nextIndex = (tabIndex + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') nextIndex = (tabIndex - 1 + tabs.length) % tabs.length;
+      if (nextIndex !== tabIndex){ event.preventDefault(); tabs[nextIndex].focus(); tabs[nextIndex].click(); }
+    });
+  });
+  function updateSatgisOpacity(){
+    var opacity = Number(satgisOpacity.value) / 100;
+    satgisSource.style.setProperty('--satgis-layer-opacity', opacity);
+    satgisOutput.style.setProperty('--satgis-layer-opacity', opacity);
+    satgisOpacityValue.textContent = satgisOpacity.value + '%';
+  }
+  satgisOpacity.addEventListener('input', updateSatgisOpacity);
+  updateSatgisOpacity();
+  var satgisAfter = document.getElementById('satgis-after');
+  document.getElementById('satgis-compare-range').addEventListener('input', function(event){
+    satgisAfter.style.width = event.target.value + '%';
+  });
+
+  /* ---- GIS World network ---- */
+  var currentSkills = ['Spatial Data','Municipal GIS','Spatial Analysis','GIS QA/QC','Geodatabases','Web GIS','Remote Sensing','Map Automation','Field GIS'];
+  var exploring = ['Earth Observation','Urban Systems','Infrastructure','Environment','Water','Disaster Risk','Location Intelligence'];
+  var cx = 450, cy = 280;
+  var nodesGroup = document.getElementById('network-nodes');
+  var linksGroup = document.getElementById('network-links');
+  var nodesHTML = '<circle cx="'+cx+'" cy="'+cy+'" r="34" fill="#161d21" stroke="#d3a25a" stroke-width="1.5"></circle>' +
+    '<text x="'+cx+'" y="'+(cy+5)+'" text-anchor="middle" font-family="Space Grotesk" font-size="16" font-weight="600" fill="#eae6dd">GIS</text>';
+  var linksHTML = '';
+
+  function placeRing(items, radius, color, textColor, fontSize){
+    var count = items.length;
+    items.forEach(function(label, i){
+      var angle = (i / count) * Math.PI * 2 - Math.PI/2;
+      var x = cx + Math.cos(angle) * radius;
+      var y = cy + Math.sin(angle) * radius;
+      linksHTML += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'"></line>';
+      var r = 5;
+      nodesHTML += '<g class="network-node" tabindex="0" role="button" aria-label="'+label+'" data-label="'+label+'">' +
+        '<circle class="node-circle" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" fill="'+color+'"></circle>' +
+        '<text x="'+x.toFixed(1)+'" y="'+(y - r - 8).toFixed(1)+'" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="'+fontSize+'" fill="'+textColor+'">'+label+'</text>' +
+        '</g>';
+    });
+  }
+  placeRing(currentSkills, 130, '#d3a25a', '#eae6dd', 10.5);
+  placeRing(exploring, 235, '#4f5f52', '#9aa39c', 9.5);
+
+  linksGroup.innerHTML = linksHTML;
+  nodesGroup.innerHTML = nodesHTML;
+
+  var worldRelationships = {
+    'Spatial Data': ['Tools: ArcGIS Pro, QGIS', 'Projects: Municipal GIS', 'Applications: Data management'],
+    'Municipal GIS': ['Tools: ArcGIS Pro, QGIS', 'Projects: Property Tax Web GIS', 'Applications: Urban planning and infrastructure mapping'],
+    'Spatial Analysis': ['Tools: ArcGIS Pro, QGIS', 'Projects: Landslide susceptibility, waterlogging assessment', 'Applications: Spatial decision support'],
+    'GIS QA/QC': ['Tools: ArcGIS Pro, QGIS', 'Projects: Municipal geospatial datasets', 'Applications: Topology validation and error correction'],
+    'Geodatabases': ['Tools: ArcGIS Pro, QGIS', 'Projects: Municipal GIS', 'Applications: Spatial data management'],
+    'Web GIS': ['Tools: ArcGIS Online, Experience Builder', 'Projects: Municipal Property Tax Web GIS', 'Applications: Interactive property visualisation'],
+    'Remote Sensing': ['Tools: Google Earth Engine', 'Projects: LULC mapping and NDVI analysis', 'Applications: Wildlife habitat monitoring and conservation'],
+    'Map Automation': ['Tools: Python, ArcPy', 'Projects: GIS workflow automation', 'Applications: Repetitive GIS workflow support'],
+    'Field GIS': ['Tools: QField', 'Projects: Field verification', 'Applications: Synchronized spatial updates'],
+    'Earth Observation': ['Tools: Satellite data, Google Earth Engine', 'Projects: LULC mapping and NDVI analysis', 'Applications: Environmental analysis'],
+    'Environment': ['Tools: Remote sensing techniques', 'Projects: LULC mapping and NDVI analysis', 'Applications: Ecological questions'],
+    'Disaster Risk': ['Tools: ArcGIS Pro, QGIS, Python', 'Projects: Landslide susceptibility mapping', 'Applications: Disaster-risk assessment']
+  };
+  var worldDetail = document.getElementById('world-detail');
+  nodesGroup.querySelectorAll('.network-node').forEach(function(node){
+    function showRelationship(){
+      var label = node.getAttribute('data-label');
+      var details = worldRelationships[label] || ['Tools: GIS technologies', 'Projects: [ADD PROJECT DETAILS]', 'Applications: [ADD APPLICATION DETAILS]'];
+      worldDetail.innerHTML = '<strong>' + label + '</strong>' + details.map(function(detail){ return '<span>' + detail + '</span>'; }).join('');
+    }
+    node.addEventListener('click', showRelationship);
+    node.addEventListener('keydown', function(event){
+      if (event.key === 'Enter' || event.key === ' '){ event.preventDefault(); showRelationship(); }
+    });
+  });
+
+  /* ---- Scroll reveal ---- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
