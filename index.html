@@ -147,14 +147,14 @@ h1.hero-name{
 .hero-role .sep{color:var(--text-dim); margin:0 6px;}
 .hero-focus{display:grid; gap:5px; margin:-8px 0 22px; color:var(--text-mid); font-family:var(--mono); font-size:clamp(.76rem,1.2vw,.92rem); letter-spacing:.08em; text-transform:uppercase;}
 .hero-focus span:first-child{color:var(--accent);}
-.earth-emblem{width:min(100%,390px); aspect-ratio:1; justify-self:end; position:relative; color:var(--accent); opacity:.86;}
-.earth-emblem svg{width:100%; height:100%; display:block; overflow:visible;}
-.earth-emblem .earth-shell{fill:rgba(79,95,82,.12); stroke:currentColor; stroke-opacity:.72; stroke-width:1.25;}
-.earth-emblem .earth-grid{fill:none; stroke:#eae6dd; stroke-opacity:.2; stroke-width:1;}
-.earth-emblem .earth-route{fill:none; stroke:currentColor; stroke-opacity:.6; stroke-width:1.25; stroke-dasharray:3 7; animation:routepulse 8s linear infinite;}
-.earth-emblem .earth-node{fill:var(--accent);}
-.earth-emblem text{fill:var(--text-mid); font-family:var(--mono); font-size:10px; letter-spacing:.16em;}
-@keyframes routepulse{to{stroke-dashoffset:-40;}}
+.hero-globe{width:min(100%,420px); aspect-ratio:1; justify-self:end; position:relative; isolation:isolate; opacity:.82; overflow:hidden;}
+.hero-globe::after{content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(circle at center, transparent 43%, rgba(13,17,20,.18) 62%, var(--bg-2) 78%, var(--bg-2) 100%);}
+.globe-video{width:100%; height:100%; display:block; object-fit:contain; mix-blend-mode:screen; opacity:.8; -webkit-mask-image:radial-gradient(circle at center, #000 0 58%, transparent 78%); mask-image:radial-gradient(circle at center, #000 0 58%, transparent 78%);}
+.hero-globe::before{content:"DIGITAL EARTH / GIS VISUALIZATION"; position:absolute; inset:auto 0 17%; z-index:0; text-align:center; color:var(--text-dim); font:10px var(--mono); letter-spacing:.14em; opacity:.5;}
+@media (prefers-reduced-motion: reduce){
+  .hero-globe .globe-video{display:none;}
+  .hero-globe{background:radial-gradient(circle at center, rgba(79,95,82,.28) 0 28%, rgba(211,162,90,.08) 29% 34%, transparent 58%);}
+}
 p.hero-line{
   font-size:clamp(1rem,1.6vw,1.25rem); color:var(--text-mid); max-width:520px;
   margin-bottom:36px; font-weight:300;
@@ -383,7 +383,7 @@ footer{
   .project.reverse .project-visual{order:0;}
   .hero-coords{flex-wrap:wrap; gap:10px;}
   .hero-layout{grid-template-columns:1fr; gap:24px;}
-  .earth-emblem{width:min(58vw,260px); justify-self:center; grid-row:1; opacity:.58;}
+  .hero-globe{width:min(58vw,260px); justify-self:center; grid-row:1; opacity:.62;}
   .hero-content{grid-row:2;}
   .lab-grid{grid-template-columns:1fr;}
   .satgis-workspace{grid-template-columns:1fr;}
@@ -398,14 +398,13 @@ footer{
   .skills-grid{grid-template-columns:1fr;}
   .gis-atmosphere svg{opacity:.48;}
   .atmosphere-label{font-size:8px;}
-  .earth-emblem{width:min(62vw,220px);}
+  .hero-globe{width:min(62vw,220px);}
 }
 
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
   .atmosphere-contours{animation:none !important;}
   .gis-atmosphere svg{transform:none !important;}
-  .earth-emblem .earth-route{animation:none !important;}
 }
 </style>
 </head>
@@ -500,20 +499,12 @@ footer{
         <a href="#" class="btn btn-ghost view-cv">View CV</a>
       </div>
     </div>
-    <div class="earth-emblem" aria-hidden="true">
-      <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
-        <circle class="earth-shell" cx="180" cy="180" r="124"></circle>
-        <ellipse class="earth-grid" cx="180" cy="180" rx="68" ry="124"></ellipse>
-        <ellipse class="earth-grid" cx="180" cy="180" rx="124" ry="48"></ellipse>
-        <path class="earth-grid" d="M56 180h248M180 56v248"></path>
-        <path class="earth-route" d="M86 218c28-70 72-86 102-34s50 53 86-12"></path>
-        <circle class="earth-node" cx="120" cy="184" r="4"></circle>
-        <circle class="earth-node" cx="180" cy="150" r="4"></circle>
-        <circle class="earth-node" cx="238" cy="172" r="4"></circle>
-        <circle class="earth-node" cx="274" cy="160" r="3"></circle>
-        <text x="180" y="132" text-anchor="middle">EARTH</text>
-        <text x="180" y="244" text-anchor="middle">GIS / SPATIAL DATA</text>
-      </svg>
+    <div class="hero-globe" aria-hidden="true">
+      <video class="globe-video" autoplay muted loop playsinline preload="metadata">
+        <source src="174708-852018337_medium.mp4" type="video/mp4">
+        <source src="assets/globe/digital-earth.webm" type="video/webm">
+        <source src="assets/globe/digital-earth.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 
@@ -536,7 +527,7 @@ footer{
     </div>
     <div class="profile-facts">
       <div>
-        <strong>Mumbai, Maharashtra, India</strong>
+        <strong>Kolhapur, Maharashtra, India</strong>
         Based in
       </div>
       <div>
@@ -852,7 +843,7 @@ footer{
     <div class="contact-grid">
       <a href="mailto:geosushant05@gmail.com">geosushant05@gmail.com</a>
       <a href="tel:+919373259980">+91 93732 59980</a>
-      <span>Mumbai, Maharashtra, India</span>
+      <span>Kolhapur, Maharashtra, India</span>
     </div>
     <div class="contact-ctas">
       <a href="#" class="btn btn-primary view-cv">Download CV</a>
@@ -871,6 +862,12 @@ footer{
   "use strict";
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  var globeVideo = document.querySelector('.globe-video');
+  if (reduced && globeVideo){
+    globeVideo.pause();
+    globeVideo.removeAttribute('autoplay');
+  }
 
   /* ---- Unified GIS atmosphere ---- */
   var atmosphere = document.getElementById('gis-atmosphere');
