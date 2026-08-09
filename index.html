@@ -65,7 +65,7 @@ a:focus-visible, button:focus-visible{
 .bg-layer{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.9;}
 .gis-atmosphere{
   position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
-  background:radial-gradient(ellipse at 52% 12%, rgba(79,95,82,.13), transparent 48%), var(--bg-2);
+  background:radial-gradient(ellipse at 52% 12%, rgba(79,95,82,.13), transparent 48%);
 }
 .gis-atmosphere svg{width:100%; height:100%; display:block; opacity:.72; transition:opacity .8s ease, transform 1.4s ease;}
 .gis-atmosphere[data-zone="journey"] svg{transform:translateY(-1.5%); opacity:.78;}
@@ -119,8 +119,8 @@ nav.links a.cv-btn:hover{background:#e3b56d;}
   justify-content:flex-end; padding:0 clamp(20px,4vw,56px) 70px;
   overflow:hidden;
 }
-.hero-canvas{
-  position:absolute; inset:0; z-index:0; overflow:hidden;
+.site-bg-video{
+  position:fixed; inset:0; z-index:0; overflow:hidden;
   background:radial-gradient(ellipse 70% 60% at 50% 35%, rgba(79,95,82,.18), var(--bg-2) 78%);
 }
 .hero-bg-video{
@@ -130,8 +130,8 @@ nav.links a.cv-btn:hover{background:#e3b56d;}
 }
 .hero-vignette{
   position:absolute; inset:0; z-index:1;
-  background:radial-gradient(ellipse 90% 70% at 50% 100%, rgba(13,17,20,0.15), rgba(13,17,20,0.5) 78%),
-             linear-gradient(180deg, rgba(13,17,20,0.4) 0%, rgba(13,17,20,0.22) 32%, rgba(13,17,20,0.4) 100%);
+  background:radial-gradient(ellipse 90% 70% at 50% 100%, rgba(13,17,20,0.15), rgba(13,17,20,0.8) 78%),
+             linear-gradient(180deg, rgba(13,17,20,0.62) 0%, rgba(13,17,20,0.22) 32%, rgba(13,17,20,0.65) 100%);
 }
 .hero-layout{position:relative; z-index:2; max-width:900px; width:100%;}
 .hero-content{max-width:760px;}
@@ -177,7 +177,8 @@ p.hero-line{
 @keyframes scrollpulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
 
 /* ===== Sections generic ===== */
-section{position:relative; z-index:2; padding:clamp(70px,12vh,140px) clamp(20px,4vw,56px);}
+section{position:relative; z-index:2; padding:clamp(70px,12vh,140px) clamp(20px,4vw,56px); background:rgba(13,17,20,0.82);}
+section.hero{background:none;}
 .section-head{max-width:640px; margin-bottom:56px;}
 .section-num{font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:14px; display:block;}
 h2.section-title{font-size:clamp(1.9rem,4vw,2.9rem); font-weight:550; letter-spacing:-0.01em; margin-bottom:16px;}
@@ -407,6 +408,13 @@ footer{
 <body>
 
 <div class="grain" aria-hidden="true"></div>
+<div class="site-bg-video" aria-hidden="true">
+  <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="174708-852018337_medium.mp4" type="video/mp4">
+    <source src="assets/globe/digital-earth.webm" type="video/webm">
+    <source src="assets/globe/digital-earth.mp4" type="video/mp4">
+  </video>
+</div>
 <div class="gis-atmosphere" id="gis-atmosphere" aria-hidden="true">
   <svg id="atmosphere-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -445,19 +453,12 @@ footer{
     <a href="#gis-lab">06 GIS&nbsp;Lab</a>
     <a href="#gis-world">07 GIS&nbsp;World</a>
     <a href="#contact">08 Contact</a>
-    <a href="https://github.com/Geosush05/Resume.git" class="cv-btn" id="view-cv">View CV</a>
+    <a href="#" class="cv-btn" id="view-cv">View CV</a>
   </nav>
 </header>
 
 <!-- ============ HERO ============ -->
 <section id="home" class="hero" aria-label="Introduction">
-  <div class="hero-canvas" aria-hidden="true">
-    <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
-      <source src="174708-852018337_medium.mp4" type="video/mp4">
-      <source src="assets/globe/digital-earth.webm" type="video/webm">
-      <source src="assets/globe/digital-earth.mp4" type="video/mp4">
-    </video>
-  </div>
   <div class="hero-vignette" aria-hidden="true"></div>
 
   <div class="hero-layout">
@@ -476,7 +477,7 @@ footer{
       <p class="hero-line">I work with geographic data, mapping, spatial analysis, remote sensing and GIS technologies to understand places, patterns and change.</p>
       <div class="hero-ctas">
         <a href="#work" class="btn btn-primary">Explore Work</a>
-        <a href="https://github.com/Geosush05/Resume.git" class="btn btn-ghost view-cv">View CV</a>
+        <a href="#" class="btn btn-ghost view-cv">View CV</a>
       </div>
     </div>
   </div>
@@ -819,7 +820,7 @@ footer{
       <span>Mumbai, Maharashtra, India</span>
     </div>
     <div class="contact-ctas">
-      <a href="https://github.com/Geosush05/Resume.git" class="btn btn-primary view-cv">Download CV</a>
+      <a href="#" class="btn btn-primary view-cv">Download CV</a>
       <a href="https://www.linkedin.com/in/sushant-gurav/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bdp8Pv0%2BvQ2OFPVIoUaTUpA%3D%3D" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn Profile</a>
     </div>
   </div>
