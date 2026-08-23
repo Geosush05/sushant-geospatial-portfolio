@@ -1,0 +1,8 @@
+{
+  "name": "Sushant Gurav Portfolio",
+  "description": "Evidence-led GIS Analyst portfolio featuring Geospatial Analysis, Remote Sensing, Environmental Monitoring, GIS Automation, Python/ArcPy scripting, and spatial analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

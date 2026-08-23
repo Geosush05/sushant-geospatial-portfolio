@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1512">
+  <meta name="description" content="Sushant Gurav — Geospatial Analysis, Remote Sensing, Environmental Monitoring & GIS Automation. Evidence-led GIS Analyst portfolio featuring satellite remote sensing, hazard modeling, ArcPy automation and municipal GIS.">
+  <meta property="og:title" content="Sushant Gurav | Geospatial Analysis & Remote Sensing Portfolio">
+  <meta property="og:description" content="Geospatial Analysis | Remote Sensing | Environmental Monitoring | GIS Automation — Sushant Gurav's evidence-based GIS Analyst portfolio.">
+  <meta property="og:type" content="website">
+  <title>Sushant Gurav | Geospatial Analysis · Remote Sensing · Environmental Monitoring · GIS Automation</title>
+  
+  <!-- Leaflet Map CSS for Interactive Journey Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="data/projects.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <!-- Ambient Topographic Veil -->
+  <div class="site-video-layer" aria-hidden="true">
+    <div class="site-backdrop-image"></div>
+    <div class="site-video-overlay"></div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Topographic Contour Atmosphere -->
+  <div class="site-atmosphere" aria-hidden="true">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+          <path d="M80 0H0V80" fill="none" stroke="currentColor" stroke-opacity=".06" />
+        </pattern>
+      </defs>
+      <rect width="1600" height="900" fill="url(#grid)" />
+      <g class="contour-lines">
+        <path d="M-80 730 C180 510 360 840 650 650 S1100 520 1690 690" />
+        <path d="M-100 675 C180 470 390 780 670 600 S1110 475 1680 635" />
+        <path d="M-110 620 C190 430 410 720 700 550 S1120 435 1660 580" />
+        <path d="M-120 565 C210 390 430 660 725 500 S1140 395 1650 530" />
+        <path d="M940 150 C1030 80 1160 95 1240 165 S1380 290 1510 210" />
+        <path d="M925 195 C1030 120 1160 135 1238 205 S1380 330 1535 245" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Primary Sticky Navigation Header -->
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Sushant Gurav — Home">
+      <span class="brand-mark">SG</span>
+      <span class="brand-copy">
+        <strong>Sushant Gurav</strong>
+        <small>GIS Analyst · Remote Sensing</small>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation menu">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+      <a href="#journey">Interactive Map</a>
+      <a href="#featured">Featured</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact" class="nav-contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="kicker"><span>17.68° N · 74.01° E</span> Geospatial Portfolio · Maharashtra, India</p>
+        <h1 id="hero-title">GIS Analyst & Remote Sensing Specialist</h1>
+        <p class="hero-role">
+          <span>Geospatial Analysis</span>
+          <span>·</span>
+          <span>Remote Sensing</span>
+          <span>·</span>
+          <span>Environmental Monitoring</span>
+          <span>·</span>
+          <span>GIS Automation</span>
+        </p>
+        <p class="hero-intro">
+          I apply spatial data, Earth observation satellites, machine-learning hazard models, and Python/ArcPy automation to solve environmental and spatial challenges. My primary professional specialization is <strong>Geospatial Analysis, Remote Sensing, Environmental Monitoring & GIS Automation</strong>, supported by applied industry delivery in municipal GIS database management.
+        </p>
+        
+        <div class="hero-actions">
+          <a class="button button-primary" href="#featured">Explore Case Studies</a>
+          <a class="button button-secondary" href="#journey">Interactive Journey Map</a>
+          <a class="button button-secondary" href="documents/Sushant-Gurav-CV.pdf" target="_blank" rel="noopener noreferrer">View CV (PDF)</a>
+          <a class="button button-secondary" href="https://www.linkedin.com/in/sushant-gurav/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </div>
+
+        <div class="hero-capabilities" aria-label="Core Technical Stack">
+          <span class="pill-highlight">Forest & Wildlife GIS</span>
+          <span>Remote Sensing (Sentinel / Landsat)</span>
+          <span>Python / ArcPy</span>
+          <span>Machine Learning (XGBoost / RF)</span>
+          <span>Web GIS (ArcGIS Online)</span>
+          <span>QField Mobile GIS</span>
+        </div>
+      </div>
+
+      <aside class="hero-side" aria-label="Profile and featured evidence preview">
+        <section class="profile-card">
+          <img class="profile-photo" src="assets/images/sushant.jpg" alt="Portrait of Sushant Gurav" width="383" height="471" fetchpriority="high">
+          <div class="profile-copy">
+            <span class="profile-label">GIS Analyst</span>
+            <strong>Sushant Bhikaji Gurav</strong>
+            <span class="profile-location">Kolhapur / Mumbai, Maharashtra, India</span>
+            <span class="profile-edu">M.Sc. Geoinformatics · M.A. Geography</span>
+            <a href="mailto:geosushant05@gmail.com" class="profile-email">geosushant05@gmail.com</a>
+          </div>
+        </section>
+
+        <figure class="hero-evidence map-frame">
+          <div class="map-frame-bar">
+            <span>Flagship Evidence · GeoAI</span>
+            <span>M.Sc. Research · 2024–25</span>
+          </div>
+          <button class="hero-map-button" type="button" data-open-project="landslide-ml" aria-label="Open Landslide Susceptibility Mapping case study">
+            <img src="assets/projects/landslide-ml/xgboost-map.webp" alt="XGBoost landslide susceptibility map from the M.Sc. Geoinformatics project" width="1240" height="1783" fetchpriority="high">
+          </button>
+          <figcaption>
+            <strong>Landslide Susceptibility · XGBoost</strong>
+            <span>93.41% Accuracy · 839 points · Click to inspect</span>
+          </figcaption>
+        </figure>
+      </aside>
+    </section>
+
+    <!-- 20-30 Second Recruiter Fast-Scan Strip -->
+    <section class="signal-strip" aria-label="Portfolio highlights and core focus">
+      <article class="signal-direction-card">
+        <span class="signal-icon">🌿</span>
+        <strong>Environmental GIS &amp; Earth Observation Professional</strong>
+        <span class="signal-subtitle">Geospatial Analysis | Remote Sensing | Environmental Monitoring | GIS Automation</span>
+      </article>
+      <article>
+        <span class="signal-icon">🛰️</span>
+        <strong>Remote Sensing &amp; GeoAI</strong>
+        <span>Multispectral/Thermal analysis (Sentinel-2, Landsat), LULC &amp; NDVI dynamics, ArcPy automation toolboxes &amp; XGBoost hazard modeling</span>
+      </article>
+      <article>
+        <span class="signal-icon">🏛️</span>
+        <strong>Applied Industry Practice</strong>
+        <span>Municipal GIS database management (Thane Municipal Corp), strict topology QA/QC, Python scripting, QField mobile &amp; Web GIS</span>
+      </article>
+    </section>
+
+    <!-- Interactive Journey Map & Career Timeline (Placed right below hero signal strip) -->
+    <section id="journey" class="section" aria-labelledby="journey-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive Geospatial Web Map</p>
+          <h2 id="journey-title">Mapped study areas, research & professional milestones.</h2>
+        </div>
+        <p>Scroll to zoom in and out. Click any marker on the interactive web map or any milestone to inspect the geographic study area and associated project deliverables.</p>
+      </header>
+
+      <div class="journey-map-wrapper">
+        <!-- Interactive Web Map Container -->
+        <div class="map-frame journey-map-frame">
+          <div class="map-frame-bar">
+            <span id="map-active-label">Interactive Web Map · Western Ghats & Maharashtra Study Areas</span>
+            <span id="map-coords-badge">17.68° N, 74.01° E</span>
+          </div>
+          <div id="journey-map" class="journey-map-canvas" role="region" aria-label="Interactive GIS Journey Web Map"></div>
+          <div class="map-legend-strip">
+            <span class="legend-chip"><span class="chip-dot dot-wildlife"></span> Wildlife & Conservation</span>
+            <span class="legend-chip"><span class="chip-dot dot-geoai"></span> GeoAI / ML Hazard</span>
+            <span class="legend-chip"><span class="chip-dot dot-industry"></span> Industry GIS Practice</span>
+            <span class="legend-chip"><span class="chip-dot dot-remote"></span> Remote Sensing</span>
+          </div>
+        </div>
+
+        <!-- Career Milestones List -->
+        <div class="journey-timeline-side">
+          <ol id="journey-list" class="journey-list"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Case Studies (Evidence-Based: Problem → Data → Workflow → Tools → Analysis → Result → Application) -->
+    <section id="featured" class="section" aria-labelledby="featured-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Selected Evidence</p>
+          <h2 id="featured-title">Flagship GIS & Remote Sensing case studies.</h2>
+        </div>
+        <p>Evidence-led spatial research: real satellite imagery, quantitative metrics, validated maps, and downloadable documentation.</p>
+      </header>
+      <div id="featured-projects" class="featured-grid"></div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section id="experience" class="section section-tight" aria-labelledby="experience-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Professional Practice</p>
+          <h2 id="experience-title">Industry delivery & conservation practice.</h2>
+        </div>
+        <p>Transparent separation between enterprise municipal delivery and protected-area wildlife conservation GIS.</p>
+      </header>
+      <div id="experience-grid" class="experience-grid"></div>
+    </section>
+
+    <!-- Comprehensive Project Library with Categories -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Project Library</p>
+          <h2 id="projects-title">Explore all GIS, Remote Sensing & GeoAI work.</h2>
+        </div>
+        <p>Filter by technical domain. Open any project to inspect the full Problem → Data → Workflow → Tools → Analysis → Result → Application pipeline.</p>
+      </header>
+      <div id="project-filters" class="filter-row" role="group" aria-label="Filter projects"></div>
+      <p id="project-count" class="project-count" aria-live="polite"></p>
+      <div id="project-grid" class="project-grid"></div>
+    </section>
+
+    <!-- Evidence-Led Skills Matrix -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Evidence-Led Capabilities</p>
+          <h2 id="skills-title">Skills backed by real project deliverables.</h2>
+        </div>
+        <p>No arbitrary percent bars. Every technical capability links directly to a documented project, tool, or professional workflow.</p>
+      </header>
+      <div id="skills-grid" class="skills-grid"></div>
+    </section>
+
+    <!-- Resume / CV Download Section -->
+    <section id="resume" class="section section-tight" aria-labelledby="resume-title">
+      <div class="resume-card">
+        <div class="resume-copy">
+          <p class="eyebrow">Curriculum Vitae & Credentials</p>
+          <h2 id="resume-title">Ready to contribute to GIS & environmental teams.</h2>
+          <p>
+            Comprehensive CV documenting academic background (M.Sc. Geoinformatics & M.A. Geography), industry GIS delivery, Sahyadri Tiger Reserve internship, ArcPy script tools, machine-learning publications, and technical toolchains.
+          </p>
+          <div class="resume-meta-grid">
+            <div>
+              <strong>Primary Roles:</strong>
+              <span>GIS Analyst · Remote Sensing Specialist · Environmental / Wildlife GIS Analyst</span>
+            </div>
+            <div>
+              <strong>Core Software:</strong>
+              <span>ArcGIS Pro, QGIS, ArcGIS Online, Experience Builder, QField, Agisoft Metashape</span>
+            </div>
+            <div>
+              <strong>Programming & Data:</strong>
+              <span>Python, ArcPy, scikit-learn, XGBoost, Google Earth Engine, Spatial SQL, GDAL</span>
+            </div>
+            <div>
+              <strong>Availability:</strong>
+              <span>Open to full-time, research, and high-impact conservation/geospatial opportunities</span>
+            </div>
+          </div>
+        </div>
+        <div class="resume-actions-side">
+          <a class="button button-primary button-large" href="documents/Sushant-Gurav-CV.pdf" target="_blank" rel="noopener noreferrer" download="Sushant-Gurav-CV.pdf">
+            Download CV (PDF) ⤓
+          </a>
+          <a class="button button-secondary" href="documents/Sushant-Gurav-CV.pdf" target="_blank" rel="noopener noreferrer">
+            View CV in Browser ↗
+          </a>
+          <a class="button button-secondary" href="https://www.linkedin.com/in/sushant-gurav/" target="_blank" rel="noopener noreferrer">
+            LinkedIn Profile ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+      <div class="contact-card">
+        <p class="eyebrow">Get in Touch</p>
+        <h2 id="contact-title">Let's discuss geospatial, conservation & remote sensing work.</h2>
+        <p>
+          I am actively open to GIS Analyst, Remote Sensing Specialist, and Environmental / Wildlife GIS roles where spatial intelligence drives real conservation and operational outcomes.
+        </p>
+        <div class="contact-actions">
+          <a class="button button-primary button-large" href="mailto:geosushant05@gmail.com">Email Me: geosushant05@gmail.com</a>
+          <a class="button button-secondary" href="tel:+919373259980">+91 93732 59980</a>
+          <a class="button button-secondary" href="https://www.linkedin.com/in/sushant-gurav/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </div>
+        <div class="contact-meta">
+          <span>📍 Location: Kolhapur / Mumbai, Maharashtra, India (Open to Relocation / Pan-India)</span>
+          <span>⚡ Direct Email: <a href="mailto:geosushant05@gmail.com">geosushant05@gmail.com</a></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <span>© <span id="year"></span> Sushant Bhikaji Gurav · GIS Analyst</span>
+    <span class="footer-links">
+      <a href="#about">About</a>
+      <a href="#featured">Featured</a>
+      <a href="#projects">Projects</a>
+      <a href="#journey">Journey Map</a>
+      <a href="documents/Sushant-Gurav-CV.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+      <a href="https://www.linkedin.com/in/sushant-gurav/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </span>
+    <span>Evidence-led Geospatial & Remote Sensing Portfolio</span>
+  </footer>
+
+  <!-- Deep-Dive Case Study Dialog (Problem → Data → Workflow → Tools → Analysis → Result → Application) -->
+  <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
+    <div class="dialog-shell">
+      <div class="dialog-topbar">
+        <span class="dialog-coordinate" id="dialog-header-coord">GEOSPATIAL CASE STUDY · EVIDENCE VIEW</span>
+        <button class="icon-button" type="button" data-close-project aria-label="Close case study dialog">Close ✕</button>
+      </div>
+      <div id="project-dialog-content"></div>
+    </div>
+  </dialog>
+
+  <!-- Lightbox Zoom Modal for High-Resolution Maps -->
+  <dialog id="lightbox-dialog" class="lightbox-dialog" aria-labelledby="lightbox-caption">
+    <button class="lightbox-close" type="button" data-close-lightbox aria-label="Close image viewer">Close ✕</button>
+    <div class="lightbox-stage">
+      <img id="lightbox-image" alt="">
+    </div>
+    <p id="lightbox-caption"></p>
+  </dialog>
+
+  <noscript>
+    <div class="noscript">This portfolio uses JavaScript to render interactive web maps and project case studies. Please enable JavaScript to view the full geospatial portfolio.</div>
+  </noscript>
+</body>
+</html>
